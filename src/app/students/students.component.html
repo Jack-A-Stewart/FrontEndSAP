@@ -1,6 +1,4 @@
 <app-nav></app-nav>
-<p>Student works?</p>
-
 <form #studentForm="ngForm"
       (ngSubmit)="onAddStudent(studentForm)"
       id="studentForm">
@@ -69,7 +67,12 @@
         {{student.email}}
       </td>
       <td>
-        Edit Icon
+        <button class="btn btn-light">
+          Edit
+        </button>
+        <button class="btn btn-danger" (click)="onDeleteStudent(student.id)">
+          Delete
+        </button>
       </td>
     </tr>
     </tbody>

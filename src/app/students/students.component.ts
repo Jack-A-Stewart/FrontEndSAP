@@ -20,6 +20,7 @@ export class StudentsComponent {
 
   ngOnInit(): void {
     this.getStudents();
+
   }
 
   public getStudents(): void {
@@ -29,8 +30,7 @@ export class StudentsComponent {
       },
       error: (error: HttpErrorResponse) => {
         console.log(error.message);
-      },
-      complete: () => {}
+      }
     });
   }
 
@@ -40,15 +40,27 @@ export class StudentsComponent {
     this.studentsService.addStudent(studentForm.value).subscribe({
       next: (response: Student) => {
         console.log(response);
+        this.getStudents();
+        studentForm.reset();
       },
       error: (error: HttpErrorResponse) => {
         console.log(error.message);
-      },
-      complete: () => {
       }
     });
   }
 
+  onDeleteStudent(id: number) {
+    this.studentsService.deleteStudent(id).subscribe({
+      next: (response: void) => {
+        console.log(response);
+        this.getStudents();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    });
+
+  }
 
 }
 
