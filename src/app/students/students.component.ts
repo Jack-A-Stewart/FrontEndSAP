@@ -11,7 +11,7 @@ import {StudentsService} from "./students.service";
 })
 
 export class StudentsComponent {
-  title = 'Students';
+  title: string = 'Students';
 
   public students: Student[] = [];
 
@@ -36,7 +36,7 @@ export class StudentsComponent {
 
 
   onAddStudent(studentForm: NgForm) {
-    document.getElementById('studentForm')?.click();
+    // document.getElementById('studentForm')?.click();
     this.studentsService.addStudent(studentForm.value).subscribe({
       next: (response: Student) => {
         console.log(response);
@@ -59,7 +59,7 @@ export class StudentsComponent {
         console.log(error.message);
       }
     });
-   }
+  }
 
 }
 

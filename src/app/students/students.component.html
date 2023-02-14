@@ -7,7 +7,7 @@
     <th scope="col">Voornaam</th>
     <th scope="col">Achternaam</th>
     <th scope="col">Email</th>
-    <th scope="col">--</th>
+    <th scope="col"></th>
     </thead>
     <tbody>
     <tr>
@@ -74,3 +74,9 @@
     </tbody>
   </table>
 </form>
+<div *ngIf="students?.length == 0">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">No students registered</h4>
+    <p>No students could be found on the server.</p>
+  </div>
+</div>

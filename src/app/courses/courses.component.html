@@ -1,3 +1,57 @@
 <app-nav></app-nav>
 
+<form #courseForm="ngForm"
+      id="courseForm">
+  <table class="table">
+    <thead>
+    <th scope="col">#</th>
+    <th scope="col">Opleiding</th>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="course"
+            required ngModel
+            name="course"/>
+        </div>
+      </td>
+      <td>
+        <button class="btn btn-primary"
+                [disabled]="courseForm.invalid"
+                (click)="onAddCourse(courseForm)">
+          Add
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let course of courses">
+      <td>
+        {{course.id}}
+      </td>
+      <td>
+        {{course.name}}
+      </td>
+      <td>
+        <button class="btn btn-danger"
+                (click)="onDeleteCourse(course.id)">
+          Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+
+
+<div *ngIf="courses?.length == 0">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">No courses registered</h4>
+    <p>No courses could be found on the server.</p>
+  </div>
+</div>
 
