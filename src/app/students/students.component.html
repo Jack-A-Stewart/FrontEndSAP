@@ -1,0 +1,77 @@
+<app-nav></app-nav>
+<p>Student works?</p>
+
+<form #studentForm="ngForm"
+      (ngSubmit)="onAddStudent(studentForm)"
+      id="studentForm">
+  <table class="table">
+    <thead>
+    <th scope="col">#</th>
+    <th scope="col">Voornaam</th>
+    <th scope="col">Achternaam</th>
+    <th scope="col">Email</th>
+    <th scope="col">--</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              required ngModel
+              name="firstName" />
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              required ngModel
+              name="lastName" />
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              required ngModel
+              name="email" />
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-primary"
+          type="button"
+          [disabled]="studentForm.invalid"
+          type="submit">
+            Add
+          </button>
+        </td>
+      </tr>
+    <tr *ngFor="let student of students">
+      <td>
+        {{student.id}}
+      </td>
+      <td>
+        {{student.firstName}}
+      </td>
+      <td>
+        {{student.lastName}}
+      </td>
+      <td>
+        {{student.email}}
+      </td>
+      <td>
+        Edit Icon
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
