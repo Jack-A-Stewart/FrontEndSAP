@@ -59,8 +59,7 @@ export class StudentsComponent {
         console.log(error.message);
       }
     });
-
-  }
+   }
 
 }
 

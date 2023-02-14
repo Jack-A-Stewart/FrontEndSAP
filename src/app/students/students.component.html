@@ -1,6 +1,5 @@
 <app-nav></app-nav>
 <form #studentForm="ngForm"
-      (ngSubmit)="onAddStudent(studentForm)"
       id="studentForm">
   <table class="table">
     <thead>
@@ -11,47 +10,47 @@
     <th scope="col">--</th>
     </thead>
     <tbody>
-      <tr>
-        <td>
-        </td>
-        <td>
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              id="firstName"
-              required ngModel
-              name="firstName" />
-          </div>
-        </td>
-        <td>
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              id="lastName"
-              required ngModel
-              name="lastName" />
-          </div>
-        </td>
-        <td>
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              id="email"
-              required ngModel
-              name="email" />
-          </div>
-        </td>
-        <td>
-          <button class="btn btn-primary"
-          [disabled]="studentForm.invalid"
-          type="submit">
-            Add
-          </button>
-        </td>
-      </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            required ngModel
+            name="firstName"/>
+        </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            required ngModel
+            name="lastName"/>
+        </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            required ngModel
+            name="email"/>
+        </div>
+      </td>
+      <td>
+        <button class="btn btn-primary"
+                [disabled]="studentForm.invalid"
+                (click)="onAddStudent(studentForm)">
+          Add
+        </button>
+      </td>
+    </tr>
     <tr *ngFor="let student of students">
       <td>
         {{student.id}}
@@ -66,7 +65,8 @@
         {{student.email}}
       </td>
       <td>
-        <button class="btn btn-danger" (click)="onDeleteStudent(student.id)">
+        <button class="btn btn-danger"
+                (click)="onDeleteStudent(student.id)">
           Delete
         </button>
       </td>
