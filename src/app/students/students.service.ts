@@ -20,7 +20,11 @@ export class StudentsService {
     return this.http.post<Student>(`${this.url}/add`, student);
   }
 
-  public deleteStudent(id: number) {
+  public editStudent(student: Student) {
+    return this.http.put<Student>(`${this.url}/update`, student);
+  }
+
+  public deleteStudent(id?: number) {
     return this.http.delete<void>(`${this.url}/delete/${id}`);
   }
 }

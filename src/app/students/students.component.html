@@ -6,7 +6,6 @@
           id="studentForm">
       <table class="table">
         <thead>
-        <th scope="col">#</th>
         <th scope="col">Voornaam</th>
         <th scope="col">Achternaam</th>
         <th scope="col">Email</th>
@@ -14,8 +13,6 @@
         </thead>
         <tbody>
         <tr>
-          <td>
-          </td>
           <td>
             <div class="form-group">
               <input
@@ -47,20 +44,13 @@
             </div>
           </td>
           <td>
-            <button class="btn btn-primary"
-                    [disabled]="studentForm.invalid"
+            <button class="btn btn-outline-primary" [disabled]="studentForm.invalid"
                     (click)="onAddStudent(studentForm)">
-              Add
+              <img alt="save" src="assets/images/save.svg">
             </button>
           </td>
         </tr>
-
-
-
         <tr *ngFor="let student of students">
-          <td>
-            {{student.id}}
-          </td>
           <td>
             {{student.firstName}}
           </td>
@@ -71,18 +61,125 @@
             {{student.email}}
           </td>
           <td>
-            <button class="btn btn-danger"
-                    (click)="onDeleteStudent(student.id)">
-              Delete
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+              (click)="onOpenModal(student.id)">
+              <img alt="edit" src="assets/images/edit.svg">
             </button>
+
           </td>
         </tr>
         </tbody>
       </table>
     </form>
-    <div *ngIf="students?.length == 0">
+
+    <!-- Displays when no students are present in the array -->
+    <div *ngIf="students.length === 0">
       <div class="alert alert-info" role="alert">
         <p>Geen studenten geregistreerd.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Edit Modal-->
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">{{ editStudent?.firstName}} {{editStudent?.lastName}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-4">
+            <form #editForm="ngForm"
+                  id="editForm">
+              <div class="form-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editFirstName"
+                  required ngModel
+                  name="firstName"/>
+              </div>
+              <div class="form-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editLastName"
+                  required ngModel
+                  name="lastName"/>
+              </div>
+              <div class="form-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editEmail"
+                  required ngModel
+                  name="email"/>
+              </div>
+              <button class="btn btn-outline-primary" [disabled]="editForm.invalid"
+                      (click)="onEditStudent(editForm)">
+                <img alt="save" src="assets/images/save.svg">
+              </button>
+              <button class="btn btn-outline-secondary ms-3"
+                      (click)="onDeleteStudent(editStudent?.id)">
+                <img alt="delete" src="assets/images/trash.svg">
+              </button>
+            </form>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-1"></div>
+          <div class="col-4">
+            <div *ngIf="courses.length > 0">
+              <form #courseStatusForm="ngForm" id="courseStatusForm">
+                <div class="row mb-3">
+                  <div class="col">
+                    <h6>Opleiding</h6>
+                    <select class="form-select" aria-label="editCourse" id="editCourse" name="name" ngModel>
+                      <option *ngFor="let course of courses" value="{{course.name}}">{{course.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <h6>Status</h6>
+                    <select class="form-select" aria-label="editStatus" id="editStatus" name="status" ngModel>
+                      <option value="registered">Geregistreerd</option>
+                      <option value="graduated">Afgestudeerd</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button class="btn btn-outline-primary"
+                            (click)="onAddCourseStatus(courseStatusForm, editStudent)">
+                      <img alt="save" src="assets/images/save.svg">
+                    </button>
+                  </div>
+                  <div class="col"></div>
+                </div>
+              </form>
+            </div>
+            <div *ngIf="courses?.length === 0">
+              <div class="alert alert-info" role="alert">
+                <p>Geen opleidingen geregistreerd.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-1"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

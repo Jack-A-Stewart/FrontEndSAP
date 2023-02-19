@@ -10,6 +10,7 @@ import { FormsModule} from "@angular/forms";
 import { StudentsService} from "./students/students.service";
 import { HttpClientModule } from "@angular/common/http";
 import {CoursesService} from "./courses/courses.service";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {CoursesService} from "./courses/courses.service";
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule
     ],
   providers: [StudentsService, CoursesService],
   bootstrap: [AppComponent]
