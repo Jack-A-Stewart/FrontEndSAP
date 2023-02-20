@@ -9,6 +9,8 @@ import { NavComponent } from './nav/nav.component';
 import { FormsModule} from "@angular/forms";
 import { StudentsService} from "./students/students.service";
 import { HttpClientModule } from "@angular/common/http";
+import {CoursesService} from "./courses/courses.service";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,10 @@ import { HttpClientModule } from "@angular/common/http";
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule
     ],
-  providers: [StudentsService],
+  providers: [StudentsService, CoursesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

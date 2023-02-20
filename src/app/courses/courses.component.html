@@ -1,3 +1,75 @@
 <app-nav></app-nav>
+<div class="container">
+  <div class="row">
 
-<p>courses works!</p>
+<!--Course input -->
+    <div class="col-6">
+      <form #courseForm="ngForm"
+            id="courseForm"
+            (ngSubmit)="onAddCourse(courseForm)">
+        <table class="table">
+          <thead>
+          <th scope="col">Opleiding toevoegen:</th>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <div class="form-group">
+                <input
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  required ngModel
+                />
+              </div>
+            </td>
+            <td>
+              <button class="btn btn-primary"
+                      [disabled]="courseForm.invalid"
+                      type="submit">
+                Add
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+<!--Course table -->
+    <div class="col-6">
+      <table class="table">
+        <thead>
+        <th scope="col">
+          #
+        </th>
+        <th>
+          Opleiding
+        </th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let course of courses">
+          <td>
+            {{course.id}}
+          </td>
+          <td>
+            {{course.name}}
+          </td>
+          <td>
+            <button class="btn btn-danger"
+                    (click)="onDeleteCourse(course.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+
+      <div *ngIf="courses?.length == 0">
+        <div class="alert alert-info" role="alert">
+          <p class="alert-heading">Geen opleidingen gevonden.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
