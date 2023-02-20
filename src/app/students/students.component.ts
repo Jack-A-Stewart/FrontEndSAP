@@ -109,10 +109,16 @@ export class StudentsComponent {
       courseName: courseName,
       status: status
     }
-    this.studentsService.addCourseStatus(data)
+    this.studentsService.addCourseStatus(data).subscribe({
+      next: (response: void) => {
+        console.log(response);
+        this.getStudents();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    });
   }
 
 }
-
-
 
