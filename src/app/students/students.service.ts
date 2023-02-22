@@ -27,4 +27,9 @@ export class StudentsService {
   public deleteStudent(id?: number) {
     return this.http.delete<void>(`${this.url}/delete/${id}`);
   }
+
+  public addCourseStatus(data: any) {
+    return this.http.post<void>(`${this.url}/setCourseStatus`, data);
+  }
+
 }

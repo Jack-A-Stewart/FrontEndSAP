@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Student} from "../model/student.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
@@ -18,6 +18,7 @@ export class StudentsComponent {
   public courses: Course[] = [];
   public editStudent: Student | undefined;
   @ViewChild('editForm') editForm: NgForm | undefined;
+  public isConnected: boolean = false;
 
 
   constructor(private studentsService: StudentsService, private coursesService: CoursesService) {
@@ -32,9 +33,11 @@ export class StudentsComponent {
     this.studentsService.getStudents().subscribe({
       next: (students: Student[]) => {
         this.students = students;
+        this.isConnected = true;
       },
       error: (error: HttpErrorResponse) => {
         console.log(error.message);
+        this.isConnected = false;
       }
     });
   }
@@ -88,19 +91,34 @@ export class StudentsComponent {
     });
   }
 
-  public onOpenModal(id: number) {
-    this.editStudent = this.students.find((student)=> { return student.id === id });
+  public onOpenModal(student: Student) {
+    this.editStudent = student;
     this.editForm?.setValue({
+      id: this.editStudent?.id,
       firstName: this.editStudent?.firstName,
       lastName: this.editStudent?.lastName,
       email: this.editStudent?.email
     });
   }
 
-  public onAddCourseStatus(courseStatusForm: NgForm, student?: Student) {
-    console.log(courseStatusForm.value);
+  public onAddCourseStatus(courseStatusForm: NgForm, id?: number) {
+    let courseName = courseStatusForm.value.name;
+    let status = courseStatusForm.value.status;
+    let data = {
+      id: id,
+      courseName: courseName,
+      status: status
+    }
+    this.studentsService.addCourseStatus(data).subscribe({
+      next: (response: void) => {
+        console.log(response);
+        this.getStudents();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    });
   }
+
 }
-
-
 

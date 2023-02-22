@@ -36,7 +36,7 @@
           <td>
             <div class="form-group">
               <input
-                type="text"
+                type="email"
                 class="form-control"
                 id="email"
                 required ngModel
@@ -66,7 +66,7 @@
               class="btn btn-outline-primary"
               data-bs-toggle="modal"
               data-bs-target="#editModal"
-              (click)="onOpenModal(student.id)">
+              (click)="onOpenModal(student)">
               <img alt="edit" src="assets/images/edit.svg">
             </button>
 
@@ -79,10 +79,19 @@
     <!-- Displays when no students are present in the array -->
     <div *ngIf="students.length === 0">
       <div class="alert alert-info" role="alert">
-        <p>Geen studenten geregistreerd.</p>
+        <p>Geen studenten geregistreerd</p>
       </div>
     </div>
   </div>
+
+<!--  Displays when the get request can't complete -->
+  <div *ngIf="!isConnected">
+  <div class="alert alert-danger" role="alert">
+    <p>There is no connection to the server</p>
+  </div>
+  </div>
+
+
 </div>
 
 
@@ -101,6 +110,9 @@
           <div class="col-4">
             <form #editForm="ngForm"
                   id="editForm">
+              <div class="form-group">
+                <input id="editId" name="id" ngModel style="display: none">
+              </div>
               <div class="form-group mb-3">
                 <input
                   type="text"
@@ -119,17 +131,20 @@
               </div>
               <div class="form-group mb-3">
                 <input
-                  type="text"
+                  type="email"
                   class="form-control"
                   id="editEmail"
                   required ngModel
                   name="email"/>
               </div>
-              <button class="btn btn-outline-primary" [disabled]="editForm.invalid"
+              <button class="btn btn-outline-primary"
+                      data-bs-dismiss="modal"
+                      [disabled]="editForm.invalid"
                       (click)="onEditStudent(editForm)">
                 <img alt="save" src="assets/images/save.svg">
               </button>
               <button class="btn btn-outline-secondary ms-3"
+                      data-bs-dismiss="modal"
                       (click)="onDeleteStudent(editStudent?.id)">
                 <img alt="delete" src="assets/images/trash.svg">
               </button>
@@ -150,15 +165,15 @@
                   <div class="col">
                     <h6>Status</h6>
                     <select class="form-select" aria-label="editStatus" id="editStatus" name="status" ngModel>
-                      <option value="registered">Geregistreerd</option>
-                      <option value="graduated">Afgestudeerd</option>
+                      <option value="Geregistreerd">Geregistreerd</option>
+                      <option value="Afgestudeerd">Afgestudeerd</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
                     <button class="btn btn-outline-primary"
-                            (click)="onAddCourseStatus(courseStatusForm, editStudent)">
+                            (click)="onAddCourseStatus(courseStatusForm, editStudent?.id)">
                       <img alt="save" src="assets/images/save.svg">
                     </button>
                   </div>
@@ -166,11 +181,14 @@
                 </div>
               </form>
             </div>
+
+<!-- Displays if courses[] is empty -->
             <div *ngIf="courses?.length === 0">
               <div class="alert alert-info" role="alert">
-                <p>Geen opleidingen geregistreerd.</p>
+                <p>Geen opleidingen geregistreerd</p>
               </div>
             </div>
+
           </div>
           <div class="col-1"></div>
         </div>
@@ -184,3 +202,7 @@
     </div>
   </div>
 </div>
+
+
+
+
