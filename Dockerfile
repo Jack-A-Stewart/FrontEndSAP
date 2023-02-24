@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application to the container
-COPY ../../Users/josgr/Desktop .
+COPY . .
 
 # Build the Angular app
 RUN npm run build
