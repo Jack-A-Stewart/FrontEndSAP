@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Student} from "../model/student.model";
+import { Student } from "../model/student.model";
 
 
 @Injectable({
@@ -10,7 +10,8 @@ export class StudentsService {
 
   constructor(private http: HttpClient) { }
 
-  url: string = 'http://localhost:8080/student';
+  url: string = 'https://sap-production.up.railway.app/student';
+
 
   public getStudents() {
     return this.http.get<Student[]>(`${this.url}/all`);
