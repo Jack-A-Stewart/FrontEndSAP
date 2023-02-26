@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular app
-RUN npm run build --configuration production
+RUN npm run build --prod
 
 # Use a smaller, more minimal runtime for the production image
 FROM nginx:latest
