@@ -22,5 +22,5 @@ FROM nginx:latest
 # Copy the built app from the build container to the production container
 COPY --from=build /app/dist/front-end-sap /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 443
+EXPOSE 443
