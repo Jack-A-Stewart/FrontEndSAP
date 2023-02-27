@@ -19,8 +19,14 @@ RUN npm run build --omit=dev
 # Use a smaller, more minimal runtime for the production image
 FROM nginx:latest
 
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
+RUN rm -rf /usr/share/nginx/html/*
+
 # Copy the built app from the build container to the production container
 COPY --from=build /app/dist/front-end-sap /usr/share/nginx/html
 
-# Expose port 443
-EXPOSE 443
+# Expose port 80, 443
+EXPOSE 80 443
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
