@@ -28,5 +28,3 @@ COPY --from=build /app/dist/front-end-sap /usr/share/nginx/html
 
 # Expose port 80, 443
 EXPOSE 80 443
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
