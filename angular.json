@@ -94,6 +94,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "FrontEndSAP:build:production",
+            "firebaseProject": "student-angular",
+            "firebaseHostingSite": "student-angular"
+          }
         }
       }
     }
