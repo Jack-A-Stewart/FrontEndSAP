@@ -6,9 +6,9 @@
           id="studentForm">
       <table class="table">
         <thead>
-        <th scope="col">Voornaam</th>
-        <th scope="col">Achternaam</th>
-        <th scope="col">Email</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Mail</th>
         <th scope="col"></th>
         </thead>
         <tbody>
@@ -66,10 +66,19 @@
               class="btn btn-outline-primary"
               data-bs-toggle="modal"
               data-bs-target="#editModal"
-              (click)="onOpenModal(student)">
+              (click)="onOpenEditModal(student)">
               <img alt="edit" src="assets/images/edit.svg">
             </button>
-
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#listModal"
+              (click)="onOpenListModal(student)">
+              <img alt="list" src="assets/images/book.svg">
+            </button>
           </td>
         </tr>
         </tbody>
@@ -79,16 +88,16 @@
     <!-- Displays when no students are present in the array -->
     <div *ngIf="students.length === 0">
       <div class="alert alert-info" role="alert">
-        <p>Geen studenten geregistreerd</p>
+        <p>No students registered</p>
       </div>
     </div>
   </div>
 
-<!--  Displays when the get request can't complete -->
+  <!--  Displays when the get request can't complete -->
   <div *ngIf="!isConnected">
-  <div class="alert alert-danger" role="alert">
-    <p>There is no connection to the server</p>
-  </div>
+    <div class="alert alert-danger" role="alert">
+      <p>There is no connection to the server</p>
+    </div>
   </div>
 
 
@@ -157,7 +166,7 @@
               <form #courseStatusForm="ngForm" id="courseStatusForm">
                 <div class="row mb-3">
                   <div class="col">
-                    <h6>Opleiding</h6>
+                    <h6>Course</h6>
                     <select class="form-select" aria-label="editCourse" id="editCourse" name="name" ngModel>
                       <option *ngFor="let course of courses" value="{{course.name}}">{{course.name}}</option>
                     </select>
@@ -165,8 +174,8 @@
                   <div class="col">
                     <h6>Status</h6>
                     <select class="form-select" aria-label="editStatus" id="editStatus" name="status" ngModel>
-                      <option value="Geregistreerd">Geregistreerd</option>
-                      <option value="Afgestudeerd">Afgestudeerd</option>
+                      <option value="Registered">Registered</option>
+                      <option value="Graduated">Graduated</option>
                     </select>
                   </div>
                 </div>
@@ -182,22 +191,48 @@
               </form>
             </div>
 
-<!-- Displays if courses[] is empty -->
+            <!-- Displays if courses[] is empty -->
             <div *ngIf="courses?.length === 0">
               <div class="alert alert-info" role="alert">
-                <p>Geen opleidingen geregistreerd</p>
+                <p>No courses registered</p>
               </div>
+            </div>
+            <div class="col mt-3" *ngIf="success">
+              <p>Status registered</p>
             </div>
 
           </div>
           <div class="col-1"></div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- List Modal -->
+
+<div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="listModalLabel">{{ editStudent?.firstName}} {{editStudent?.lastName}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Course</th>
+            <th scope="col">Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let courseStatus of courseStatuses">
+            <td>{{courseStatus.courseName}}</td>
+            <td>{{courseStatus.status}}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

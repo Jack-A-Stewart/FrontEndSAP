@@ -7,10 +7,9 @@ import { StudentsComponent } from './students/students.component';
 import { CoursesComponent } from './courses/courses.component';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule} from "@angular/forms";
-import { StudentsService} from "./students/students.service";
 import { HttpClientModule } from "@angular/common/http";
-import {CoursesService} from "./courses/courses.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataTransferService } from "./dataTransfer/data-transfer.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         FormsModule,
         BrowserAnimationsModule
     ],
-  providers: [StudentsService, CoursesService],
+  providers: [DataTransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

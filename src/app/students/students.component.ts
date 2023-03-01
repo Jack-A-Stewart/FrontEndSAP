@@ -2,9 +2,9 @@ import {Component, ViewChild} from '@angular/core';
 import {Student} from "../model/student.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
-import {StudentsService} from "./students.service";
 import {Course} from "../model/course.model";
-import {CoursesService} from "../courses/courses.service";
+import {DataTransferService} from "../dataTransfer/data-transfer.service";
+import {CourseStatus} from "../model/courseStatus.model";
 
 @Component({
   selector: 'app-students',
@@ -16,12 +16,15 @@ export class StudentsComponent {
   title: string = 'Students';
   public students: Student[] = [];
   public courses: Course[] = [];
+  public courseStatuses: CourseStatus[] = [];
+
   public editStudent: Student | undefined;
   @ViewChild('editForm') editForm: NgForm | undefined;
   public isConnected: boolean = false;
+  public success: boolean = false;
 
 
-  constructor(private studentsService: StudentsService, private coursesService: CoursesService) {
+  constructor(private dataTransferService: DataTransferService) {
   }
 
   ngOnInit(): void {
@@ -30,7 +33,7 @@ export class StudentsComponent {
   }
 
   public getStudents(): void {
-    this.studentsService.getStudents().subscribe({
+    this.dataTransferService.getStudents().subscribe({
       next: (students: Student[]) => {
         this.students = students;
         this.isConnected = true;
@@ -43,7 +46,7 @@ export class StudentsComponent {
   }
 
   public onAddStudent(studentForm: NgForm) {
-    this.studentsService.addStudent(studentForm.value).subscribe({
+    this.dataTransferService.addStudent(studentForm.value).subscribe({
       next: (response: Student) => {
         console.log(response);
         this.getStudents();
@@ -56,7 +59,7 @@ export class StudentsComponent {
   }
 
   public onEditStudent(editForm: NgForm) {
-    this.studentsService.editStudent(editForm.value).subscribe({
+    this.dataTransferService.editStudent(editForm.value).subscribe({
       next: (response: Student) => {
         console.log(response);
         editForm.reset();
@@ -69,7 +72,7 @@ export class StudentsComponent {
   }
 
   public onDeleteStudent(id?: number) {
-    this.studentsService.deleteStudent(id).subscribe({
+    this.dataTransferService.deleteStudent(id).subscribe({
       next: (response: void) => {
         console.log(response);
         this.getStudents();
@@ -81,7 +84,7 @@ export class StudentsComponent {
   }
 
   public getCourses(): void {
-    this.coursesService.getCourses().subscribe({
+    this.dataTransferService.getCourses().subscribe({
       next: (courses: Course[]) => {
         this.courses = courses;
       },
@@ -91,7 +94,7 @@ export class StudentsComponent {
     });
   }
 
-  public onOpenModal(student: Student) {
+  public onOpenEditModal(student: Student) {
     this.editStudent = student;
     this.editForm?.setValue({
       id: this.editStudent?.id,
@@ -99,6 +102,11 @@ export class StudentsComponent {
       lastName: this.editStudent?.lastName,
       email: this.editStudent?.email
     });
+  }
+
+  public onOpenListModal(student: Student) {
+    this.editStudent = student;
+    this.getCourseStatus(this.editStudent?.id);
   }
 
   public onAddCourseStatus(courseStatusForm: NgForm, id?: number) {
@@ -109,14 +117,27 @@ export class StudentsComponent {
       courseName: courseName,
       status: status
     }
-    this.studentsService.addCourseStatus(data).subscribe({
+    this.dataTransferService.addCourseStatus(data).subscribe({
       next: (response: void) => {
         console.log(response);
         this.getStudents();
+        this.success = true;
       },
       error: (error: HttpErrorResponse) => {
         console.log(error.message);
+        this.success = false;
       }
+    });
+  }
+
+  public getCourseStatus(id: number) {
+    this.dataTransferService.getCourseStatus(id).subscribe({
+      next: (courseStatuses: CourseStatus[]) => {
+        this.courseStatuses = courseStatuses;
+    },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.message);
+    }
     });
   }
 

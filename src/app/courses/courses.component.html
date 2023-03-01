@@ -9,7 +9,7 @@
             (ngSubmit)="onAddCourse(courseForm)">
         <table class="table">
           <thead>
-          <th scope="col">Opleiding toevoegen:</th>
+          <th scope="col">Add Course:</th>
           </thead>
           <tbody>
           <tr>
@@ -43,7 +43,7 @@
           #
         </th>
         <th>
-          Opleiding
+          Course:
         </th>
         </thead>
         <tbody>
@@ -67,7 +67,7 @@
 
       <div *ngIf="courses?.length == 0">
         <div class="alert alert-info" role="alert">
-          <p class="alert-heading">Geen opleidingen gevonden.</p>
+          <p class="alert-heading">No courses registered</p>
         </div>
       </div>
     </div>

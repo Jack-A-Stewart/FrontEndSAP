@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {Course} from "../model/course.model";
-import {CoursesService} from "./courses.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
+import {DataTransferService} from "../dataTransfer/data-transfer.service";
 
 @Component({
   selector: 'app-courses',
@@ -15,7 +15,7 @@ export class CoursesComponent {
 
   public courses: Course[] = [];
 
-  constructor(private coursesService: CoursesService) {
+  constructor(private dataTransferService: DataTransferService) {
   }
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class CoursesComponent {
   }
 
   public getCourses(): void {
-    this.coursesService.getCourses().subscribe({
+    this.dataTransferService.getCourses().subscribe({
       next: (courses: Course[]) => {
         this.courses = courses;
       },
@@ -34,7 +34,7 @@ export class CoursesComponent {
   }
 
   public onAddCourse(courseForm: NgForm) {
-    this.coursesService.addCourse(courseForm.value).subscribe({
+    this.dataTransferService.addCourse(courseForm.value).subscribe({
       next: (response: Course) => {
         console.log(response);
         this.getCourses();
@@ -47,7 +47,7 @@ export class CoursesComponent {
   }
 
   public onDeleteCourse(id: number) {
-    this.coursesService.deleteCourse(id).subscribe({
+    this.dataTransferService.deleteCourse(id).subscribe({
       next: (response: void) => {
         console.log(response);
         this.getCourses();
