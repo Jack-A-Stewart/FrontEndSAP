@@ -95,6 +95,7 @@ export class StudentsComponent {
   }
 
   public onOpenEditModal(student: Student) {
+    this.success = false;
     this.editStudent = student;
     this.editForm?.setValue({
       id: this.editStudent?.id,

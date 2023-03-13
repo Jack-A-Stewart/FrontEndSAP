@@ -12,14 +12,14 @@ export class DataTransferService {
   constructor(private http: HttpClient) { }
 
   // Dev:
-  urlStudent: string = 'http://localhost:8080/student';
-
-  urlCourse: string = 'http://localhost:8080/course';
+//   urlStudent: string = 'http://localhost:8080/student';
+//
+//   urlCourse: string = 'http://localhost:8080/course';
 
   // Prod:
-  // urlStudent: string = 'https://sap-production.up.railway.app/student';
-  //
-  // urlCourse: string = 'https://sap-production.up.railway.app/course';
+  urlStudent: string = 'https://sap-production.up.railway.app/student';
+
+  urlCourse: string = 'https://sap-production.up.railway.app/course';
 
 
   public getStudents() {

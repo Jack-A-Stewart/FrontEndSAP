@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "student-angular-e9e21": {
+      "hosting": {
+        "FrontEndSAP": [
+          "student-angular-e9e21"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "student-angular-e9e21"
+  }
+}

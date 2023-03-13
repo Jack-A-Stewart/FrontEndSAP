@@ -101,8 +101,8 @@
             "prerender": false,
             "ssr": false,
             "browserTarget": "FrontEndSAP:build:production",
-            "firebaseProject": "student-angular",
-            "firebaseHostingSite": "student-angular"
+            "firebaseProject": "student-angular-e9e21",
+            "firebaseHostingSite": "student-angular-e9e21"
           }
         }
       }
