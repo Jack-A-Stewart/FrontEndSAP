@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment';
 })
 export class DataTransferService {
 
-  private endpointS = 'student';
-  private endpointC = 'course';
+  private StudentEP = 'student';
+  private CourseEP = 'course';
 
   private domain: string | undefined;
 
@@ -22,39 +22,39 @@ export class DataTransferService {
 
 
   public getStudents() {
-    return this.http.get<Student[]>(`${this.domain}${this.endpointS}/all`);
+    return this.http.get<Student[]>(`${this.domain}${this.StudentEP}/all`);
   }
 
   public addStudent(student: Student) {
-    return this.http.post<Student>(`${this.domain}${this.endpointS}/add`, student);
+    return this.http.post<Student>(`${this.domain}${this.StudentEP}/add`, student);
   }
 
   public editStudent(student: Student) {
-    return this.http.put<Student>(`${this.domain}${this.endpointS}/update`, student);
+    return this.http.put<Student>(`${this.domain}${this.StudentEP}/update`, student);
   }
 
   public deleteStudent(id?: number) {
-    return this.http.delete<void>(`${this.domain}${this.endpointS}/delete/${id}`);
+    return this.http.delete<void>(`${this.domain}${this.StudentEP}/delete/${id}`);
   }
 
   public addCourseStatus(data: any) {
-    return this.http.post<void>(`${this.domain}${this.endpointS}/setCourseStatus`, data);
+    return this.http.post<void>(`${this.domain}${this.StudentEP}/setCourseStatus`, data);
   }
 
   public getCourses() {
-    return this.http.get<Course[]>(`${this.domain}${this.endpointC}/all`);
+    return this.http.get<Course[]>(`${this.domain}${this.CourseEP}/all`);
   }
 
   public addCourse(course: Course) {
-    return this.http.post<Course>(`${this.domain}${this.endpointC}/add`, course);
+    return this.http.post<Course>(`${this.domain}${this.CourseEP}/add`, course);
   }
 
   public deleteCourse(id: number) {
-    return this.http.delete<void>(`${this.domain}${this.endpointC}/delete/${id}`);
+    return this.http.delete<void>(`${this.domain}${this.CourseEP}/delete/${id}`);
   }
 
   public getCourseStatus(id: number) {
-    return this.http.get<CourseStatus[]>(`${this.domain}${this.endpointS}/findCourseAndStatus/${id}`)
+    return this.http.get<CourseStatus[]>(`${this.domain}${this.StudentEP}/findCourseAndStatus/${id}`)
   }
 
 
